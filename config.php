@@ -13,3 +13,16 @@ define("PHPMAILER_CFG", array(
     'USER' => "equipe8.hackaton2020@gmail.com",
     'PASS' => "hackaton2020"
 ));
+
+define("TWIG_CFG", array(
+    'dev' => array(
+        'cache' => false,
+        'autoescape' => "html",
+        'debug'=>true
+    ),
+    'prod' => array(
+        'cache' => "cache",
+        'autoescape' => "html",
+        'debug'=>false
+    )
+));
