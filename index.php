@@ -36,7 +36,7 @@ else
     $page = 'login';
 
 if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
-    if($p === 'tmp') {} else {
+    if($page === 'tmp') {} else {
         $template = $twig->load("accueil.twig");
     }
 } else {

@@ -1,11 +1,13 @@
 <?php
 
+$alert = "";
+
 if(isset($_POST['email']) && isset($_POST['passwd'])) {
     if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $user = $sgbd->request(
             "SELECT * FROM user WHERE email=?",
             array($_POST['email'])
-        );
+        )[0];
 
         if(!empty($user) && password_verify($_POST['passwd'], $user['passwd'])) {
             unset($user['passwd']);
@@ -22,8 +24,7 @@ if(isset($_POST['email']) && isset($_POST['passwd'])) {
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>';
     }
-} else
-    $alert = "";
+}
 
 $pageContent = array(
     'form' => $_POST,
