@@ -10,31 +10,31 @@ try {
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   $sql = "INSERT INTO USER (firstname, lastname, rol, email, passwd)
-  VALUES ('Mickael', 'Rigonnaux', 'administrateur','mickael@example.com', password_hash('administrateur',PASSWORD_BCRYPT))";
+  VALUES ('Mickael', 'Rigonnaux', 'administrateur','mickael@example.com', '".password_hash('administrateur',PASSWORD_BCRYPT)."')";
   // use exec() because no results are returned
   $conn->exec($sql);
   echo "New record created successfully<br>";
 
   $sql = "INSERT INTO USER (firstname, lastname, rol, email, passwd)
-  VALUES ('John', 'Washington', 'client','washington@example.com', password_hash('client',PASSWORD_BCRYPT))";
+  VALUES ('John', 'Washington', 'client','washington@example.com', '".password_hash('client',PASSWORD_BCRYPT)."')";
   // use exec() because no results are returned
   $conn->exec($sql);
   echo "New record created successfully<br>";
 
   $sql = "INSERT INTO USER (firstname, lastname, rol, email, passwd)
-  VALUES ('Kennedy', 'Doe', 'client','kennedy@example.com', password_hash('client',PASSWORD_BCRYPT))";
+  VALUES ('Kennedy', 'Doe', 'client','kennedy@example.com', '".password_hash('client',PASSWORD_BCRYPT)."')";
   // use exec() because no results are returned
   $conn->exec($sql);
   echo "New record created successfully<br>";
   
   $sql = "INSERT INTO USER (firstname, lastname, rol, email, passwd)
-  VALUES ('Bruce', 'Harper', 'client','bruce@example.com', password_hash('client',PASSWORD_BCRYPT))";
+  VALUES ('Bruce', 'Harper', 'client','bruce@example.com', '".password_hash('client',PASSWORD_BCRYPT)."')";
   // use exec() because no results are returned
   $conn->exec($sql);
   echo "New record created successfully<br>";
 
   $sql = "INSERT INTO USER (firstname, lastname, rol, email, passwd)
-  VALUES ('Patrick', 'Evrette', 'client','patrick@example.com', password_hash('client',PASSWORD_BCRYPT))";
+  VALUES ('Patrick', 'Evrette', 'client','patrick@example.com', '".password_hash('client',PASSWORD_BCRYPT)."')";
   // use exec() because no results are returned
   $conn->exec($sql);
   echo "New record created successfully<br>";
