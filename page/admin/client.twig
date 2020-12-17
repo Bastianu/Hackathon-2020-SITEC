@@ -1,0 +1,40 @@
+{% extends "template/admin.twig" %}
+
+{% block pageContent %}
+<h1 id="top">Clients</h1>
+<a href="index.php?p=clt&add" class="btn btn-primary w-100">Ajouter</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Email</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for client in clts %}
+            <tr>
+                <th scope="row">{{ client.id }}</th>
+                <td>{{ client.firstname }}</td>
+                <td>{{ client.lastname }}</td>
+                <td>{{ client.email }}</td>
+                <td class="text-end">
+                    <a href="index.php?p=clt&del={{ client.id }}">
+                        <img src="./img/trash.svg" alt="Supprimer" title="Supprimer le client">
+                    </a>
+                </td>
+            </tr>    
+        {% endfor %}
+    </tbody>
+</table>
+<a href="index.php?p=clt&add" class="btn btn-primary w-100">Ajouter</a>
+
+<a href="#top" class="btn btn-outline-primary topBtn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z"/>
+    <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+</svg>
+</a>
+{% endblock %}

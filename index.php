@@ -39,8 +39,21 @@ if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     if($page === 'logout') {
         session_destroy();
         header('Refresh:0');
+    } else if($_SESSION['user']['rol'] === "administrateur") {
+        /*if($page === 'clt') {
+            require_once MODEL."admin/client.php";
+            $template = $twig->load("admin/client.twig");
+        }else*/ if($page === 'techno') {
+            require_once MODEL."admin/techno.php";
+            $template = $twig->load("admin/techno.twig");
+        } else {
+            $template = $twig->load("admin/accueil.twig");
+        }
     } else {
-        $template = $twig->load("accueil.twig");
+        if($page === 'tmp') {
+        } else {
+            $template = $twig->load("client/accueil.twig");
+        }
     }
 } else {
     require_once MODEL."login.php";
