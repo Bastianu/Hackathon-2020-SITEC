@@ -25,7 +25,8 @@ try {
 
     $sql = "CREATE TABLE TECHNOLOGIE (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        technoname VARCHAR(30) NOT NULL
+        technoname VARCHAR(30) NOT NULL,
+        version VARCHAR(10) NOT NULL
         
     )";
     
