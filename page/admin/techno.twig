@@ -2,7 +2,9 @@
 
 {% block pageContent %}
 <h1>Technologies</h1>
-{% if clts is not null %}
+{% if action == "add" %}
+{% elseif action == "edit" %}
+{% elseif clts is not null %}
     <h2>Choix du client:</h2>
     <table class="table table-striped">
         <thead>
@@ -40,10 +42,10 @@
                     <td>{{ tech.technoname }}</td>
                     <td>{{ tech.version }}</td>
                     <td class="text-end">
-                        <a href="index.php?p=techno&edit={{ tech.id }}">
+                        <a href="index.php?p=techno&edit={{ tech.id }}&clt={{ clt.id }}">
                             <img src="./img/pencil-square.svg" alt="Supprimer" title="Editer la technologie">
                         </a>
-                        <a href="index.php?p=techno&del={{ tech.id }}">
+                        <a href="index.php?p=techno&del={{ tech.id }}&clt={{ clt.id }}">
                             <img src="./img/trash.svg" alt="Supprimer" title="Supprimer la technologie">
                         </a>
                     </td>
@@ -51,7 +53,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="index.php?p=techno&add&clt={{ client.id }}" class="btn btn-primary w-100">Ajouter</a>
+    <a href="index.php?p=techno&add&clt={{ clt.id }}" class="btn btn-primary w-100">Ajouter</a>
 {% endif %}
 
 <a href="#top" class="btn btn-outline-primary topBtn">
