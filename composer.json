@@ -4,26 +4,23 @@
     "authors": [
         {
             "name": "Amjoud Said",
-            "email": "",
             "role": ""
         },
         {
             "name": "Blanc Sebastien",
-            "email": "",
             "role": ""
         },
         {
             "name": "Djessou Mahugnon",
-            "email": "",
             "role": ""
         },
         {
             "name": "Guiraud Gwenael",
-            "email": "",
             "role": ""
         }
     ],
     "require": {
-        "phpmailer/phpmailer": "^6.2"
+        "phpmailer/phpmailer": "^6.2",
+        "twig/twig": "^3.1"
     }
 }
