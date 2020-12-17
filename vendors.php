@@ -26,9 +26,9 @@
                 <a class="navbar-brand" href="#">Hackathon 2020</a>
                 </div>
                 <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li><a href="home.php">Home</a></li>
                 <li><a href="profile.php">Mon profil</a></li>
-                <li><a href="vendors.php">Vendors</a></li>
+                <li class="active"><a href="vendors.php">Vendors</a></li>
                 <li><a href="products.php">Products</a></li>
                 <li><a href="cve.php">CVE</a></li>
                 <li><a href="">Déconnexion</a></li>
@@ -43,18 +43,12 @@
     </div>
 
     <div class="col-sm-8">
+    **todo** liste de tous les vendors et renvoi sur un vendor avec toutes ses technos
         <table id="myTable">
         </table>
     </div>
 
     <div class="col-sm-2">
-    </div>
-
-
- </div class="row">
-
-    <div id="cve_infos">
-        
     </div>
 </div>
 
@@ -65,58 +59,31 @@
 
 var table = null;
 	var dataset = [
-        // à remplir avec la requete bdd locale
-        {techno: "php", techno_ver:"8", cve:"<button class='btn btn-link' onclick=''>CVE-2020-14394</button>", level:"low"},
-        {techno: "maria_db", techno_ver:"1", cve:"<button class='btn btn-link' onclick=''>CVE-2010-3333</button>", level:"medium"}
     ];
     $(document).ready( function () {
-        table = $("#myTable").DataTable({
-        	data: dataset,
+        table = $("#myTable")
+        .DataTable({
+            data: dataset,
 		    columns: [
-			        { title:"Technologie", data: "techno"},
-			        { title:"Version", data: "techno_ver", orderable: false },
-                    { title:"Vulnérabilité", data: "cve" },
-                    { title:"Impact", data: "level" }
-
-                    
-			        //{ title:"Actions", data: "action", className: "text-center", orderable: false }
-			    ],
+                 { title:"Vendor", data: "vendor"},
+                 { title:"Suivre", data:   "active", orderable: false ,
+                    render: function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                            return '<input type="checkbox" class="editor-active">';
+                        }
+                        return data;
+                    },
+                    className: "dt-body-center"
+                 }
+                ],
 			pageLength: 25,
 			deferRender: true,
             responsive: true,
             language: {
                 url: "lang/French.json"
             }
-        })/*
-        .on('click', 'tbody tr', function() {
-            get_cve(table.row(this).data());
-            });*/
-    });
-
-/*
-    function get_cve(data){
-        var cve = data["cve"];
-        var url = "https://api/cve?code="+cve+".php";
-        $.ajax({
-            url: url,
-            dataType: "json",
-            crossDomain: true,
-            method: "GET",
-
-            headers: "{ accept: 'application/json', Access-Control-Allow-Origin: '*'}",
-
-            success: function(response) {          
-                var output = "<div><h2>@code_cve</h2>"+"<br> description : @esc_cve <br> solutions : @solution_cve </div>"; 
-                $('#cve_infos').replaceWith(output);
-            },
-            error: function (xhr, status) {
-                var output = "Une erreur est survenue lors de la requête de cet élément"; 
-                $('#cve_infos').replaceWith(output);
-            }
-            
         })
-    }
-*/
+    });
 
 </script>
 </body>
