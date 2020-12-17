@@ -8,4 +8,5 @@
 
 # Composer Ignores files & folders
 composer.phar
+composer.lock
 vendor/*

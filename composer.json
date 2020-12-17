@@ -1,0 +1,29 @@
+{
+    "name": "equipe-8/hackathon-2020-sitec",
+    "description": "Réponse de l'equipe 8 au défi de la SITEC dans le cadre des hackatons 2020",
+    "authors": [
+        {
+            "name": "Amjoud Said",
+            "email": "",
+            "role": ""
+        },
+        {
+            "name": "Blanc Sebastien",
+            "email": "",
+            "role": ""
+        },
+        {
+            "name": "Djessou Mahugnon",
+            "email": "",
+            "role": ""
+        },
+        {
+            "name": "Guiraud Gwenael",
+            "email": "",
+            "role": ""
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.2"
+    }
+}
