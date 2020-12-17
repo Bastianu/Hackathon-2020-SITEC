@@ -12,6 +12,7 @@ if(isset($_POST['email']) && isset($_POST['passwd'])) {
         if(!empty($user) && password_verify($_POST['passwd'], $user['passwd'])) {
             unset($user['passwd']);
             $_SESSION['user'] = $user;
+            header("Refresh:0");
         } else {
             $alert = '<div class="alert alert-warning alert-dismissible fade show" role="alert">
                 Authentification impossible.<br>Merci de vérifier les informations saisie.

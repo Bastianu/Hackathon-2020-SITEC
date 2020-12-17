@@ -36,7 +36,10 @@ else
     $page = 'login';
 
 if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
-    if($page === 'tmp') {} else {
+    if($page === 'logout') {
+        session_destroy();
+        header('Refresh:0');
+    } else {
         $template = $twig->load("accueil.twig");
     }
 } else {
