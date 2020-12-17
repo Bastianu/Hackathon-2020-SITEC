@@ -17,7 +17,7 @@ try {
         lastname VARCHAR(30) NOT NULL,
         rol ENUM('administrateur','client') NOT NULL,
         email VARCHAR(50),
-        passwd VARCHAR (100)
+        passwd VARCHAR(100)
     )";
    
     $conn->exec($sql);
