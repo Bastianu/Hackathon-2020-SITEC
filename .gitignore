@@ -5,3 +5,7 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+
+# Composer Ignores files & folders
+composer.phar
+vendor/*
