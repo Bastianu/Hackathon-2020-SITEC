@@ -29,10 +29,9 @@ if(isset($_POST["updateUser"])){
     $lastname = (isset($_POST['lastname']) && $_POST['lastname']!="") ? $_POST['lastname'] : $user["lastname"];
     $email = (isset($_POST['email']) && $_POST['email']!="") ? $_POST['email'] : $user["email"];
 
-    echo $firstname." ".$lastname." ".$email;
-    $sgbd->request("UPDATE user SET firstname = $firstname, lastname = $lastname, email = $email WHERE email=?", array($_SESSION["user"]["email"]) );
+    $sgbd->request("UPDATE user SET firstname = '$firstname', lastname = '$lastname', email = '$email' WHERE email=?", array($_SESSION["user"]["email"]) );
 
-    header("refresh:0");
+    header("refresh:0");    
 }
 
 ?>

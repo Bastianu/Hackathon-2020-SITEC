@@ -1,5 +1,29 @@
 <?php
-    session_start();
+// Starting sessions
+session_start();
+
+//initializing errors
+ini_set('display_errors', '1');
+
+/* -------------------------- Constants definitions ------------------------- */
+define("ROOT", dirname(__FILE__).DIRECTORY_SEPARATOR);
+define("MODEL", ROOT."model".DIRECTORY_SEPARATOR);
+
+/* ----------------------------- Files includes ----------------------------- */
+require_once ROOT."config.php";
+require_once ROOT."class/SGBD.class.php";
+require_once ROOT."vendor/autoload.php";
+
+$sgbd = new SGBD(
+    "mysql:host=".DB_CFG['HOST'].";dbname=".DB_CFG['DB_NAME'],
+    DB_CFG['USER'],
+    DB_CFG['PASSWORD']
+);
+
+$user = $sgbd->request("SELECT * FROM user WHERE email=?",array($_SESSION["user"]["email"]))[0];
+$technos = $sgbd->request("SELECT * FROM technologie left join usertechnologie on  usertechnologie.id_technologie = technologie.id where usertechnologie.id_user = ?",array($_SESSION["user"]["id"]));
+echo "<div id='usertechnos' style='display:none'>".json_encode($technos) ."</div>";
+
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +42,6 @@
 <body>
 
 <div class="container">
-
     <div class="row">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -37,12 +60,14 @@
         </nav>
     </div>
     <br>
-    <br>
   <div class="row">
     <div class="col-sm-2">
     </div>
 
     <div class="col-sm-8">
+        <h2> Vos technologies </h2>
+        <br>
+    <br>
         <table id="myTable">
         </table>
     </div>
@@ -62,16 +87,19 @@
 
 <script>
 
+var usertechnos = [];
+var a = JSON.parse(document.getElementById("usertechnos").innerHTML);
+
+//cve et importance vulnérabilité à récupérer 
+a.forEach(techno => {
+    usertechnos.push({techno: techno["technoname"], techno_ver: techno["version"], cve:"<button class='btn btn-link' onclick=''>CVE-2020-14394</button>", level:"low" })
+})
+console.log(usertechnos)
 
 var table = null;
-	var dataset = [
-        // à remplir avec la requete bdd locale
-        {techno: "php", techno_ver:"8", cve:"<button class='btn btn-link' onclick=''>CVE-2020-14394</button>", level:"low"},
-        {techno: "maria_db", techno_ver:"1", cve:"<button class='btn btn-link' onclick=''>CVE-2010-3333</button>", level:"medium"}
-    ];
     $(document).ready( function () {
         table = $("#myTable").DataTable({
-        	data: dataset,
+        	data: usertechnos,
 		    columns: [
 			        { title:"Technologie", data: "techno"},
 			        { title:"Version", data: "techno_ver", orderable: false },
