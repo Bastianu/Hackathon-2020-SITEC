@@ -33,6 +33,12 @@ try {
   $conn->exec($sql);
   echo "New record created successfully<br>";
 
+  $sql = "INSERT INTO USER (firstname, lastname, rol, email, passwd)
+  VALUES ('Patrick', 'Evrette', 'client','patrick@example.com', sha1('client'))";
+  // use exec() because no results are returned
+  $conn->exec($sql);
+  echo "New record created successfully<br>";
+
   $sql = "INSERT INTO TECHNOLOGIE (technoname, version)
   VALUES ('mariadb', '10.4.13')";
   // use exec() because no results are returned
