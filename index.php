@@ -33,7 +33,7 @@ $pageContent = array();
 if(isset($_GET['p']) && !empty($_GET['p']))
     $page = htmlspecialchars($_GET['p']);
 else
-    $page = 'login';
+    $page = 'acceuil';
 
 if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     if($page === 'logout') {
@@ -47,4 +47,5 @@ if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     $template = $twig->load("login.twig");
 }
 
+$pageContent['page'] = $page;
 echo $template->render($pageContent);
