@@ -42,18 +42,42 @@
                     <td>{{ tech.technoname }}</td>
                     <td>{{ tech.version }}</td>
                     <td class="text-end">
-                        <a href="index.php?p=techno&edit={{ tech.id }}&clt={{ clt.id }}">
+                        <a href="#" class="editBtn"> {# index.php?p=techno&clt={{ clt.id }} #}
                             <img src="./img/pencil-square.svg" alt="Supprimer" title="Editer la technologie">
                         </a>
                         <a href="index.php?p=techno&del={{ tech.id }}&clt={{ clt.id }}">
                             <img src="./img/trash.svg" alt="Supprimer" title="Supprimer la technologie">
                         </a>
                     </td>
+                </tr>
+                <tr class="d-none editForm">
+                    <td colspan="3">
+                        <form action="index.php?p=techno&clt={{ clt.id }}" method="post" id="addForm">
+                            <input type="hidden" name="cltEdit" value="{{ tech.id }}">
+                            <div class="mb-3">
+                                <input type="text" name="techno" class="form-control" value="{{ tech.technoname }}">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="version" class="form-control" value="{{ tech.version }}">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Editer</button>
+                        </form>
+                    </td>
                 </tr>    
             {% endfor %}
         </tbody>
     </table>
-    <a href="index.php?p=techno&add&clt={{ clt.id }}" class="btn btn-primary w-100">Ajouter</a>
+    <form action="index.php?p=techno&clt={{ clt.id }}" method="post" id="addForm" class="d-none">
+        <input type="hidden" name="cltAdd">
+        <div class="mb-3">
+            <input type="text" name="techno" class="form-control" placeholder="Nom du service">
+        </div>
+        <div class="mb-3">
+            <input type="text" name="version" class="form-control" placeholder="Version du service">
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Ajouter</button>
+    </form>
+    <a href="#" class="btn btn-primary w-100" id="addBtn">Ajouter</a>
 {% endif %}
 
 <a href="#top" class="btn btn-outline-primary topBtn">
@@ -62,4 +86,22 @@
     <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
 </svg>
 </a>
+
+<script>
+let editBtn = document.getElementsByClassName('editBtn'),
+    editForm = document.getElementsByClassName('editForm'),
+    addBtn = document.getElementById('addBtn'),
+    addform = document.getElementById('addForm');
+
+for(let i = 0; i < editBtn.length; i++) {
+    editBtn[i].addEventListener('click', function(e) {
+        editForm[i].classList.toggle('d-none');
+    });
+}
+
+addBtn.addEventListener('click', function(e) {
+    addBtn.classList.toggle('d-none');
+    addForm.classList.toggle('d-none');
+});
+</script>
 {% endblock %}
