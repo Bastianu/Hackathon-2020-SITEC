@@ -57,10 +57,8 @@ if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     } else if($page === "products") {
         $template = $twig->load("client/products.twig");
     } else {
-        if($page === 'tmp') {
-        } else {
-            $template = $twig->load("client/accueil.twig");
-        }
+        require_once MODEL."acceuil.php";
+        $template = $twig->load("client/accueil.twig");
     }
 } else {
     require_once MODEL."login.php";
