@@ -30,7 +30,7 @@
                 <li><a href="profile.php">Mon profil</a></li>
                 <li class="active"><a href="vendors.php">Vendors</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="">Déconnexion</a></li>
+                <li><a href="index.php?p=logout">Déconnexion</a></li>
                 </ul>
             </div>
         </nav>
@@ -42,7 +42,6 @@
     </div>
 
     <div class="col-sm-8">
-    **todo** liste de tous les vendors et renvoi sur un vendor avec toutes ses technos
         <table id="myTable">
         </table>
     </div>
@@ -55,10 +54,11 @@
 
 <script>
 
-
+get_vendors();
 var table = null;
-	var dataset = [
-    ];
+var dataset = [];
+function create_table(){
+
     $(document).ready( function () {
         table = $("#myTable")
         .DataTable({
@@ -75,7 +75,7 @@ var table = null;
                     className: "dt-body-center"
                  }
                 ],
-			pageLength: 25,
+			pageLength: 10,
 			deferRender: true,
             responsive: true,
             language: {
@@ -83,6 +83,36 @@ var table = null;
             }
         })
     });
+}
+
+    function get_vendors(){
+        var url = "api/getvendors.php";
+        $.ajax({
+            url: url,
+            dataType: "json",
+            crossDomain: true,
+            method: "GET",
+
+            headers: "{ accept: 'application/json', Access-Control-Allow-Origin: '*'}",
+
+            success: function(response) {  
+                var vendors = [];
+                response.forEach(v => {
+                    vendors.push({vendor: v, active: true})
+                })
+                dataset = vendors;
+                console.log(dataset);
+                create_table();
+                //$("#myTable").DataTable().ajax.reload();
+            },
+            error: function (xhr, status) {
+                var output = "Une erreur est survenue lors de la requête de cet élément"; 
+                $('#cve_infos').replaceWith(output);
+            }
+            
+        })
+    }
+
 
 </script>
 </body>

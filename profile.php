@@ -65,7 +65,7 @@ if(isset($_POST["updateUser"])){
                 <li class="active"><a href="profile.php">Mon profil</a></li>
                 <li><a href="vendors.php">Vendors</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="">Déconnexion</a></li>
+                <li><a href="index.php?p=logout">Déconnexion</a></li>
                 </ul>
             </div>
         </nav>
@@ -144,7 +144,7 @@ if(isset($_POST["updateUser"])){
     }
 
     followedProducts = [{techno: "produit", techno_ver: "1.0", vendor: "vendor", active: true}]; //requete bdd 
-    followedVendors = [{vendor: "vendor", active: true}];
+    followedVendors = [{vendor: "microsoft", active: true}];
 
     var productsTable = null;
     var vendorsTable = null;
@@ -158,7 +158,7 @@ if(isset($_POST["updateUser"])){
                     { title:"Suivi", data: "active", orderable: false ,
                     render: function ( data, type, row ) {
                         if ( type === 'display' ) {
-                            return '<input type="checkbox" class="editor-active">';
+                            return '<input type="checkbox" checked class="editor-active">';
                         }
                         return data;
                     },
@@ -182,7 +182,7 @@ if(isset($_POST["updateUser"])){
                     { title:"Suivi", data: "active", orderable: false ,
                     render: function ( data, type, row ) {
                         if ( type === 'display' ) {
-                            return '<input type="checkbox" class="editor-active">';
+                            return '<input type="checkbox" checked class="editor-active">';
                         }
                         return data;
                     },

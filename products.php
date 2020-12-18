@@ -30,7 +30,7 @@
                 <li><a href="profile.php">Mon profil</a></li>
                 <li><a href="vendors.php">Vendors</a></li>
                 <li  class="active"><a href="products.php">Products</a></li>
-                <li><a href="">Déconnexion</a></li>
+                <li><a href="index.php?p=logout">Déconnexion</a></li>
                 </ul>
             </div>
         </nav>

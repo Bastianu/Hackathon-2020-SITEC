@@ -53,7 +53,7 @@ echo "<div id='usertechnos' style='display:none'>".json_encode($technos) ."</div
                 <li><a href="profile.php">Mon profil</a></li>
                 <li><a href="vendors.php">Vendors</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="">Déconnexion</a></li>
+                <li><a href="index.php?p=logout">Déconnexion</a></li>
                 </ul>
             </div>
         </nav>
@@ -132,7 +132,7 @@ var table = null;
 
     function get_cve(data){
         var cve = data;//data["cve"];
-        var url = "api/cve.php?code="+cve;
+        var url = "api/getcve.php?code="+cve;
         $.ajax({
             url: url,
             dataType: "json",
