@@ -22,12 +22,13 @@ $sgbd = new SGBD(
 
 /* --------------------------- Twig initialization -------------------------- */
 $loader = new \Twig\Loader\FilesystemLoader("page");
-$twig = new \Twig\Environment($loader, TWIG_CFG['dev']);
+$twig   = new \Twig\Environment($loader, TWIG_CFG['dev']);
 
 /* -------------------------------------------------------------------------- */
 /*                                   Routeur                                  */
 /* -------------------------------------------------------------------------- */
 
+$template    = null;
 $pageContent = array();
 
 if(isset($_GET['p']) && !empty($_GET['p']))
@@ -65,5 +66,7 @@ if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     $template = $twig->load("login.twig");
 }
 
-$pageContent['page'] = $page;
-echo $template->render($pageContent);
+if(!is_null($template)) {
+    $pageContent['page'] = $page;
+    echo $template->render($pageContent);
+}
