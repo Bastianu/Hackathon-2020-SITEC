@@ -1,0 +1,82 @@
+{% extends "template/base.twig" %}
+
+{% block pageContent %}
+<div class="row">
+    <div class="col-sm-2">
+    </div>
+
+    <div class="col-sm-8">
+        <table id="myTable">
+        </table>
+    </div>
+
+    <div class="col-sm-2">
+    </div>
+</div>
+
+
+
+<script>
+
+get_vendors();
+var table = null;
+var dataset = [];
+function create_table(){
+
+    $(document).ready( function () {
+        table = $("#myTable")
+        .DataTable({
+            data: dataset,
+		    columns: [
+                 { title:"Vendor", data: "vendor"},
+                 { title:"Suivre", data:   "active", orderable: false ,
+                    render: function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                            return '<input type="checkbox" class="editor-active">';
+                        }
+                        return data;
+                    },
+                    className: "dt-body-center"
+                 }
+                ],
+			pageLength: 10,
+			deferRender: true,
+            responsive: true,
+            language: {
+                url: "lang/French.json"
+            }
+        })
+    });
+}
+
+    function get_vendors(){
+        var url = "api/getvendors.php";
+        $.ajax({
+            url: url,
+            dataType: "json",
+            crossDomain: true,
+            method: "GET",
+
+            headers: "{ accept: 'application/json', Access-Control-Allow-Origin: '*'}",
+
+            success: function(response) {  
+                var vendors = [];
+                response.forEach(v => {
+                    vendors.push({vendor: v, active: true})
+                })
+                dataset = vendors;
+                console.log(dataset);
+                create_table();
+                //$("#myTable").DataTable().ajax.reload();
+            },
+            error: function (xhr, status) {
+                var output = "Une erreur est survenue lors de la requête de cet élément"; 
+                $('#cve_infos').replaceWith(output);
+            }
+            
+        })
+    }
+
+
+</script>
+{% endblock %}

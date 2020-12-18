@@ -1,0 +1,53 @@
+{% extends "template/base.twig" %}
+
+{% block pageContent %}
+<div class="row">
+    <div class="col-sm-2">
+    </div>
+
+    <div class="col-sm-8">
+        **todo** liste de tous les products et renvoi sur un vendor avec toutes ses technos
+        <table id="myTable">
+        </table>
+    </div>
+
+    <div class="col-sm-2">
+    </div>
+</div>
+
+
+
+
+<script>
+
+
+var table = null;
+	var dataset = [
+    ];
+    $(document).ready( function () {
+        table = $("#myTable")
+        .DataTable({
+            data: dataset,
+		    columns: [
+                 { title:"Product", data: "product"},
+                 { title:"Suivre", data:   "active", orderable: false ,
+                    render: function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                            return '<input type="checkbox" class="editor-active">';
+                        }
+                        return data;
+                    },
+                    className: "dt-body-center"
+                 }
+                ],
+			pageLength: 25,
+			deferRender: true,
+            responsive: true,
+            language: {
+                url: "lang/French.json"
+            }
+        })
+    });
+
+</script>
+{% endblock %}

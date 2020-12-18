@@ -1,5 +1,112 @@
 {% extends "template/base.twig" %}
 
 {% block pageContent %}
-<h1>Login Success</h1>
-{% endblock %}
+	<div class="row">
+		<div class="col-sm-2"></div>
+
+		<div class="col-sm-8">
+			<h2>
+				Vos technologies
+			</h2>
+			<br>
+			<br>
+			<table id="myTable"></table>
+		</div>
+
+		<div class="col-sm-2"></div>
+
+
+	</divclass="row">
+	<div class="col-sm-2"></div>
+
+	<div class="col-sm-8 text-center">
+		<div id="cve_infos"></div>
+
+		<div class="col-sm-2"></div>
+
+	</div>
+</div>
+
+<script>
+
+    var usertechnos = [];
+    var a = JSON.parse(document.getElementById("usertechnos").innerHTML);
+
+    // cve et importance vulnérabilité à récupérer
+    a.forEach(techno => {
+        techno["cve"] = "CVE-2010-3333";
+        techno["impact"] = "low";
+        usertechnos.push({
+        techno: techno["technoname"],
+        techno_ver: techno["version"],
+        cve: "<button class='btn btn-link' onclick=get_cve('" + techno['cve'] + "')>" + techno['cve'] + "</button>",
+            level: techno["impact"]
+        })
+    })
+    // console.log(usertechnos)
+
+    var table = null;
+    $(document).ready(function () {
+        table = $("#myTable").DataTable({
+        data: usertechnos,
+        columns: [
+        {
+            title: "Technologie",
+            data: "techno"
+        },
+        {
+            title: "Version",
+            data: "techno_ver",
+            orderable: false
+        },
+        {
+            title: "Vulnérabilité",
+            data: "cve"
+        },
+        {
+            title: "Impact",
+            data: "level"
+        }
+        // { title:"Actions", data: "action", className: "text-center", orderable: false }
+        ],
+        pageLength: 10,
+        deferRender: true,
+        responsive: true,
+        language: {
+            url: "lang/French.json"
+        }
+        }) /*
+                .on('click', 'tbody tr', function() {
+                    get_cve(table.row(this).data());
+                    });*/
+    });
+
+
+    function get_cve(data) {
+    var cve = data; // data["cve"];
+    var url = "api/getcve.php?code=" + cve;
+    $.ajax({
+    url: url,
+    dataType: "json",
+    crossDomain: true,
+    method: "GET",
+
+    headers: "{ accept: 'application/json', Access-Control-Allow-Origin: '*'}",
+
+    success: function (response) {
+    var output = "";
+    response.forEach(cve => {
+    output += "<div><h2>" + cve["code"] + "</h2>" + "<br> <p> description :" + cve["desc"] + "</p><br> <p>solutions :" + cve["solutions"] + "</p> </div>";
+    })
+
+
+    $('#cve_infos').replaceWith(output);
+    },
+    error: function (xhr, status) {
+    var output = "Une erreur est survenue lors de la requête de cet élément";
+    $('#cve_infos').replaceWith(output);
+    }
+
+    })
+    }
+</script>{% endblock %}
