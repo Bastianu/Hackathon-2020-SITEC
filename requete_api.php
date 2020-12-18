@@ -46,7 +46,9 @@ function getData($url) {
     $data = json_decode($json, true);
     $result = array();
     foreach($data["capec"] as $cve) {
-        array_push($result, array('name' => $cve["name"], 'desc' => $cve["summary"], 'solution' => $cve["solutions"]));
+        if(isset($data["capec"])) {
+            array_push($result, array('name' => $cve["name"], 'desc' => $cve["summary"], 'solution' => $cve["solutions"]));
+        }
     }
     return $result;
 }
@@ -67,7 +69,10 @@ foreach($cve_ids as $key => $value) {
     $techno_id = $sgbd->request('SELECT id FROM TECHNOLOGIE WHERE technoname = "' .$key. '"');
     //var_dump($techno_id[0][0]);
     foreach($value as $key2 => $value2) {
-        var_dump(getData($url2 .$value2));
+        $cve_data = getData($url2 .$value2);
+        sleep(1);
+        var_dump($cve_data);
+        //$sgbd->request('INSERT INTO cve (name, description, solution) VALUES ("' .  .'")',[]);
         //var_dump($value2);
         //$sgbd->request('INSERT INTO cve (cve_id) VALUES ("' . $value2 .'")',[]);
         //echo('INSERT INTO cve (cve_id) VALUES ("' . $value2 .'")');
