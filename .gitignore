@@ -10,3 +10,6 @@
 composer.phar
 composer.lock
 vendor/*
+
+# Twig ignore files & folders
+cache/*

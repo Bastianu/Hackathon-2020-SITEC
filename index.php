@@ -3,7 +3,7 @@
 session_start();
 
 //initializing errors
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 
 /* -------------------------- Constants definitions ------------------------- */
 define("ROOT", dirname(__FILE__).DIRECTORY_SEPARATOR);
@@ -22,7 +22,7 @@ $sgbd = new SGBD(
 
 /* --------------------------- Twig initialization -------------------------- */
 $loader = new \Twig\Loader\FilesystemLoader("page");
-$twig   = new \Twig\Environment($loader, TWIG_CFG['dev']);
+$twig   = new \Twig\Environment($loader, TWIG_CFG['prod']);
 
 /* -------------------------------------------------------------------------- */
 /*                                   Routeur                                  */
