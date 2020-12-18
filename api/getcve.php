@@ -24,10 +24,10 @@ else{
 }
 
 function get_cve($con, $code){
-    $sql = $con->request("SELECT * FROM cve WHERE code =?",array($code));
+    $sql = $con->request("SELECT * FROM cve WHERE cve_id =?",array($code));
     $result = array();
     foreach($sql as $cve){
-        array_push($result, array('code' => $cve["code"], 'desc' => $cve["desc_cve"], 'solutions' => $cve["solutions"])); //++impact
+        array_push($result, array('code' => $cve["cve_id"], 'severity' =>$cve["severity"], 'desc' => $cve["description"], 'solutions' => $cve["solution"])); //++impact
     }
     return ($result);
 }
