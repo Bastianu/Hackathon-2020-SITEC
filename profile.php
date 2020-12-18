@@ -65,7 +65,6 @@ if(isset($_POST["updateUser"])){
                 <li class="active"><a href="profile.php">Mon profil</a></li>
                 <li><a href="vendors.php">Vendors</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="cve.php">CVE</a></li>
                 <li><a href="">Déconnexion</a></li>
                 </ul>
             </div>
@@ -85,13 +84,24 @@ if(isset($_POST["updateUser"])){
             ?>
         </div>
         <div class="col-sm-4">
-            <button onclick="showdiv('modifuser')">Modifier vos données personnelles</button> 
+            <button class="btn btn-light" onclick="showdiv('modifuser')">Modifier vos données personnelles</button> 
             <div id="modifuser" style="display:none">
+            <br>
                 <form action="?" method="POST">
-                    <input type="text" placeholder="Nom" name="firstname">
-                    <input type="text" placeholder="Prenom" name="lastname">
-                    <input type="text" placeholder="Email" name="email">
-                    <input type="submit" name="updateUser">
+                    <div class="form-group">
+                        <label for="firstname">Prénom</label>
+                        <input type="text" id="firstname" placeholder="Entrez votre prénom" name="firstname">
+                    </div>  
+                    <div class="form-group">
+                    <label for="firstname">Nom</label>
+                        <input type="text" placeholder="Entrez votre nom" name="lastname">
+                    </div>
+                    <div class="form-group">
+                    <label for="firstname">Email</label>
+                        <input type="text" placeholder="Entrez votre email" name="email">
+                    </div>
+                    <input type="submit" class="btn btn-primary" name="updateUser">
+                   
                 </form>
             </div>
         </div>
@@ -102,25 +112,25 @@ if(isset($_POST["updateUser"])){
     <br>
     <br>
   <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-1">
     </div>
 
 
-    <div class="col-sm-4">
-        Produits suivis : <br>
-        ****table user-fproducts***
+    <div class="col-sm-5 text-center">
+        <h3>Produits suivis</h3> <br>
+        
         <table id="productsTable">
         </table>
     </div>
 
-    <div class="col-sm-4">
-        Vendors suivis : <br>
-        ****table user-fvendors***
+    <div class="col-sm-5 text-center">
+        <h3>Vendors suivis</h3> <br>
+        
         <table id="vendorsTable">
         </table>
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-1">
     </div>
     </span>
 </div>
@@ -132,6 +142,67 @@ if(isset($_POST["updateUser"])){
     function showdiv(div){
         document.getElementById(div).style.display = (document.getElementById(div).style.display=="none") ? "block" : "none";
     }
+
+    followedProducts = [{techno: "produit", techno_ver: "1.0", vendor: "vendor", active: true}]; //requete bdd 
+    followedVendors = [{vendor: "vendor", active: true}];
+
+    var productsTable = null;
+    var vendorsTable = null;
+    $(document).ready( function () {
+        productsTable = $("#productsTable").DataTable({
+        	data: followedProducts,
+		    columns: [
+			        { title:"Produit", data: "techno"},
+			        { title:"Version", data: "techno_ver", orderable: false },
+                    { title:"Groupe", data: "vendor" },
+                    { title:"Suivi", data: "active", orderable: false ,
+                    render: function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                            return '<input type="checkbox" class="editor-active">';
+                        }
+                        return data;
+                    },
+                    className: "dt-body-center"
+                 }
+			    ],
+			pageLength: 10,
+			deferRender: true,
+            responsive: true,
+            language: {
+                url: "lang/French.json"
+            }
+        })
+    });
+
+    $(document).ready( function () {
+        vendorsTABLE = $("#vendorsTable").DataTable({
+        	data: followedVendors,
+		    columns: [
+                    { title:"Vendor", data: "vendor"},
+                    { title:"Suivi", data: "active", orderable: false ,
+                    render: function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                            return '<input type="checkbox" class="editor-active">';
+                        }
+                        return data;
+                    },
+                    className: "dt-body-center"
+                    }
+			    ],
+			pageLength: 10,
+			deferRender: true,
+            responsive: true,
+            language: {
+                url: "lang/French.json"
+            }
+        })/*
+        .on('click', 'tbody tr', function() {
+            get_cve(table.row(this).data());
+            });*/
+    });
+
+
+
 </script>
 </body>
 

@@ -43,7 +43,25 @@ try {
 
     $conn->exec($sql);
     echo "Database USERTECHNOlOGIE successfully created<br>";
+
+    $sql = "CREATE TABLE CVE (
+        id INT(6) AUTO_INCREMENT PRIMARY KEY,
+        code VARCHAR(50) NOT NULL,
+        impact VARCHAR(50) NOT NULL,
+        desc_cve VARCHAR(2048) NOT NULL, 
+        solutions VARCHAR(2048) NOT NULL,
+    )";
+
+    $conn->exec($sql);
+    echo "Database USERTECHNOlOGIE successfully created<br>";
     
+    $sql = "CREATE TABLE CVETECHNO (
+        id_cve INT(6) UNSIGNED,
+        id_techno INT(6) UNSIGNED,
+        CONSTRAINT fk_cve_id FOREIGN KEY (id_cve) REFERENCES CVE(id),
+        CONSTRAINT fk_techno_id FOREIGN KEY (id_techno) REFERENCES TECHNOLOGIE(id),
+        PRIMARY KEY (id_user,id_technologie)
+    )";
 
 } catch(PDOException $e) {
     echo $sql . "<br>" . $e->getMessage();

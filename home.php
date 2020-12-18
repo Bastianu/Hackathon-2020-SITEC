@@ -53,7 +53,6 @@ echo "<div id='usertechnos' style='display:none'>".json_encode($technos) ."</div
                 <li><a href="profile.php">Mon profil</a></li>
                 <li><a href="vendors.php">Vendors</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="cve.php">CVE</a></li>
                 <li><a href="">Déconnexion</a></li>
                 </ul>
             </div>
@@ -77,9 +76,16 @@ echo "<div id='usertechnos' style='display:none'>".json_encode($technos) ."</div
 
 
  </div class="row">
+    <div class="col-sm-2">
+    </div>
 
-    <div id="cve_infos">
-        
+    <div class="col-sm-8 text-center">
+        <div id="cve_infos">
+    </div>
+
+    <div class="col-sm-2">
+    </div>  
+    
     </div>
 </div>
 
@@ -92,9 +98,11 @@ var a = JSON.parse(document.getElementById("usertechnos").innerHTML);
 
 //cve et importance vulnérabilité à récupérer 
 a.forEach(techno => {
-    usertechnos.push({techno: techno["technoname"], techno_ver: techno["version"], cve:"<button class='btn btn-link' onclick=''>CVE-2020-14394</button>", level:"low" })
+    techno["cve"] = "CVE-2010-3333";
+    techno["impact"] = "low";
+    usertechnos.push({techno: techno["technoname"], techno_ver: techno["version"], cve:"<button class='btn btn-link' onclick=get_cve('"+techno['cve']+"')>"+techno['cve']+"</button>", level: techno["impact"] })
 })
-console.log(usertechnos)
+//console.log(usertechnos)
 
 var table = null;
     $(document).ready( function () {
@@ -109,7 +117,7 @@ var table = null;
                     
 			        //{ title:"Actions", data: "action", className: "text-center", orderable: false }
 			    ],
-			pageLength: 25,
+			pageLength: 10,
 			deferRender: true,
             responsive: true,
             language: {
@@ -121,10 +129,10 @@ var table = null;
             });*/
     });
 
-/*
+
     function get_cve(data){
-        var cve = data["cve"];
-        var url = "https://api/cve?code="+cve+".php";
+        var cve = data;//data["cve"];
+        var url = "api/cve.php?code="+cve;
         $.ajax({
             url: url,
             dataType: "json",
@@ -133,8 +141,13 @@ var table = null;
 
             headers: "{ accept: 'application/json', Access-Control-Allow-Origin: '*'}",
 
-            success: function(response) {          
-                var output = "<div><h2>@code_cve</h2>"+"<br> description : @esc_cve <br> solutions : @solution_cve </div>"; 
+            success: function(response) {  
+                var output = ""; 
+                response.forEach(cve => {
+                    output += "<div><h2>"+cve["code"]+"</h2>"+"<br> <p> description :"+ cve["desc"] +"</p><br> <p>solutions :"+ cve["solutions"] + "</p> </div>"; 
+                })
+
+                
                 $('#cve_infos').replaceWith(output);
             },
             error: function (xhr, status) {
@@ -144,7 +157,7 @@ var table = null;
             
         })
     }
-*/
+
 
 </script>
 </body>

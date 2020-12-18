@@ -30,7 +30,6 @@
                 <li><a href="profile.php">Mon profil</a></li>
                 <li><a href="vendors.php">Vendors</a></li>
                 <li  class="active"><a href="products.php">Products</a></li>
-                <li><a href="cve.php">CVE</a></li>
                 <li><a href="">Déconnexion</a></li>
                 </ul>
             </div>
